@@ -1,5 +1,3 @@
-# 🛰️ PyMultiChat – Chat TCP/UDP Multihilo en Python
-
 ![Banner PyMultiChat](docs/banner_pymultichat.png)
 
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/)
@@ -103,7 +101,7 @@ Esta versión ejemplifica una arquitectura clásica de **chat TCP multihilo** en
 
 ### Captura del cliente en terminal
 
-![Client UI screenshot](docs/captura_cliente.png)
+![Client UI screenshot](docs/captura_chat.png)
 
 ### Diagrama de flujo TCP/UDP
 

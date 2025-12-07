@@ -1,5 +1,3 @@
-# 🛰️ PyMultiChat – Multithreaded TCP/UDP Chat in Python
-
 ![PyMultiChat banner](docs/banner_pymultichat.png)
 
 [![Python](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/)
@@ -98,7 +96,7 @@ This version shows a classic **multithreaded TCP chat architecture** in a compac
 
 Below is a screenshot of the colored client interface:
 
-![Client UI screenshot](docs/captura_cliente.png)
+![Client UI screenshot](docs/captura_chat.png)
 
 ### TCP/UDP flow diagram
 
