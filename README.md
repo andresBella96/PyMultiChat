@@ -14,7 +14,7 @@ PyMultiChat is a distributed chat system written in Python, featuring **two inde
 1. **UDP Chat** — connectionless, fast datagram messaging  
 2. **TCP Chat (Multithreaded)** — persistent socket communication per client
 
-It is designed as a learning project for **network programming, sockets, concurrency and terminal UI** in Python, and also as a clean portfolio example.
+It is designed as a learning project for **network programming, sockets, concurrency and terminal UI** in Python.
 
 ---
 
