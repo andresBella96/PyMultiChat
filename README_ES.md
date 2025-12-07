@@ -251,8 +251,6 @@ Alias:
 - 🇬🇧 **Inglés** — [README.md](README.md) (recomendado como principal en GitHub)  
 - 🇪🇸 **Español** — este archivo (`README_ES.md`)
 
-Usar el inglés como README principal suele verse más profesional en GitHub, y al mismo tiempo se mantiene una versión completa en castellano.
-
 ---
 
 ## 📜 Licencia

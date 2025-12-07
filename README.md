@@ -246,8 +246,6 @@ Your alias:
 - 🇬🇧 **English** — this file (`README.md`)  
 - 🇪🇸 **Español** — [README_ES.md](README_ES.md)
 
-Using English as the default README is common and more professional for GitHub portfolios, while still providing a full Spanish version for native speakers.
-
 ---
 
 ## 📜 License
