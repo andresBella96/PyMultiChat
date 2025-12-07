@@ -98,34 +98,6 @@ Below is a screenshot of the colored client interface:
 
 ![Client UI screenshot](docs/captura_chat.png)
 
-### TCP/UDP flow diagram
-
-```mermaid
-flowchart LR
-    subgraph UDP_Chat
-        UClient1[Client UDP 1]
-        UClient2[Client UDP 2]
-        UServer[Server UDP]
-    end
-
-    subgraph TCP_Chat
-        TClient1[Client TCP 1]
-        TClient2[Client TCP 2]
-        TServer[Server TCP]
-    end
-
-    UClient1 -- "[Alias] __HELLO__" --> UServer
-    UClient2 -- "[Alias] message" --> UServer
-    UServer -- "broadcast [Alias] message" --> UClient1
-    UServer -- "broadcast [Alias] message" --> UClient2
-
-    TClient1 -- "connect (TCP)" --> TServer
-    TClient1 -- "alias + messages" --> TServer
-    TClient2 -- "alias + messages" --> TServer
-    TServer -- "broadcast to all except sender" --> TClient1
-    TServer -- "broadcast to all except sender" --> TClient2
-```
-
 ---
 
 ## ⏳ Requirements

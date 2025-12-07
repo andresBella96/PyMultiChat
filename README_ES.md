@@ -103,34 +103,6 @@ Esta versión ejemplifica una arquitectura clásica de **chat TCP multihilo** en
 
 ![Client UI screenshot](docs/captura_chat.png)
 
-### Diagrama de flujo TCP/UDP
-
-```mermaid
-flowchart LR
-    subgraph UDP_Chat
-        UClient1[Cliente UDP 1]
-        UClient2[Cliente UDP 2]
-        UServer[Servidor UDP]
-    end
-
-    subgraph TCP_Chat
-        TClient1[Cliente TCP 1]
-        TClient2[Cliente TCP 2]
-        TServer[Servidor TCP]
-    end
-
-    UClient1 -- "[Alias] __HELLO__" --> UServer
-    UClient2 -- "[Alias] mensaje" --> UServer
-    UServer -- "broadcast [Alias] mensaje" --> UClient1
-    UServer -- "broadcast [Alias] mensaje" --> UClient2
-
-    TClient1 -- "conexión TCP" --> TServer
-    TClient1 -- "alias + mensajes" --> TServer
-    TClient2 -- "alias + mensajes" --> TServer
-    TServer -- "broadcast a todos menos emisor" --> TClient1
-    TServer -- "broadcast a todos menos emisor" --> TClient2
-```
-
 ---
 
 ## ⏳ Requisitos
