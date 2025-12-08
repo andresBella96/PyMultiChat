@@ -62,7 +62,7 @@ Thanks to this mini‑protocol:
   - `/users` – show known connected users
   - `/quit` – exit gracefully (sends `__LEAVE__`)
 
-This version is perfect to understand **connectionless** communication and broadcast‑like messaging.
+> This version is perfect to understand **connectionless** communication and broadcast‑like messaging.
 
 ### 3. TCP version – multithreaded server
 
@@ -73,7 +73,8 @@ This version is perfect to understand **connectionless** communication and broad
 - Reads from the socket line by line using `makefile("r")`
 - First line received from each client is its **alias**
 - Maintains a dictionary `socket -> alias`
-- Broadcasts to all clients except the sender
+- Implements a *simulated broadcast* to all clients except the sender  
+  (multiple repeated unicast messages, many-to-many)
 - Cleans up sockets and informs others with `__LEAVE__` on disconnect
 
 **Client (TCP)**
@@ -86,7 +87,7 @@ This version is perfect to understand **connectionless** communication and broad
   - plays a sound and prints colored messages
 - Main thread handles user input, local “bubble” printing and commands
 
-This version shows a classic **multithreaded TCP chat architecture** in a compact codebase.
+> This version shows a classic **multithreaded TCP chat architecture** in a compact codebase.
 
 ---
 

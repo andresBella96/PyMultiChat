@@ -42,58 +42,57 @@ Gracias a este mini‑protocolo:
 
 ### 2. Versión UDP – Difusión sin estado
 
-**Servidor UDP**
+**Servidor (UDP)**
 
-- Usa `socket.AF_INET`, `SOCK_DGRAM` (UDP)
-- Mantiene:
-  - un conjunto de direcciones de clientes
-  - un diccionario `(ip, puerto) -> alias`
-- Cuando recibe `__HELLO__`:
-  - registra la conexión
-  - reenvía el `__HELLO__` al resto
-  - envía `__USERS__` solo al nuevo cliente
+- Utiliza `socket.AF_INET`, `SOCK_DGRAM` (UDP)
+- Mantiene un `set` con las direcciones de clientes y un mapeo `(ip, port) -> alias`
+- Cuando un cliente envía `__HELLO__`, el servidor:
+  - registra la nueva conexión
+  - reenvía (`broadcast`) el `__HELLO__` al resto de clientes
+  - responde únicamente al cliente nuevo con `__USERS__`
 
-**Cliente UDP**
+**Cliente (UDP)**
 
-- Lanza un **hilo receptor** para escuchar sin bloquear la entrada de teclado
-- Emplea códigos ANSI (sin librerías extra) para:
-  - asignar colores a cada alias
-  - mostrar mensajes de sistema (“se ha unido…”, “ha salido…”)
+- Ejecuta un **hilo receptor** para mantener la interfaz activa mientras escucha mensajes
+- Usa códigos ANSI (sin librerías externas) para:
+  - colores por usuario
+  - mensajes de “sistema” (conexiones, desconexiones, avisos)
 - Incluye comandos básicos:
-  - `/clear` – limpia la pantalla
-  - `/users` – muestra usuarios conectados (que este cliente conoce)
-  - `/quit` – salir (enviando `__LEAVE__`)
+  - `/clear` – limpiar pantalla
+  - `/users` – mostrar usuarios conectados conocidos
+  - `/quit` – salir correctamente (envía `__LEAVE__`)
 
-Es una versión ideal para entender la comunicación **sin conexión** y el envío tipo broadcast.
+> Esta versión es ideal para entender la comunicación **sin conexión (connectionless)**  
+> y el comportamiento tipo *broadcast*.
 
-### 3. Versión TCP – Servidor multihilo clásico
+---
 
-**Servidor TCP**
+### **3. Versión TCP – servidor multihilo**
 
-- Usa `socket.AF_INET`, `SOCK_STREAM` (TCP)
-- Para cada cliente crea un `threading.Thread` con `manejar_cliente`
-- Lee desde el socket línea a línea usando `makefile("r")`
-- La primera línea que recibe de cada cliente es su **alias**
+**Servidor (TCP)**
+
+- Utiliza `socket.AF_INET`, `SOCK_STREAM` (TCP)
+- Por cada nueva conexión lanza un `threading.Thread` ejecutando `manejar_cliente`
+- Lee línea a línea mediante `makefile("r")`
+- La primera línea recibida de cada cliente es su **alias**
 - Mantiene un diccionario `socket -> alias`
-- Reenvía (broadcast) cada mensaje al resto de clientes
-- Al desconectarse un cliente:
-  - limpia el socket
-  - informa al resto con `__LEAVE__`
+- Implementa un *broadcast simulado* a todos los clientes excepto el emisor  
+  (unicast repetido, comunicación muchos-a-muchos)
+- Libera recursos y notifica a otros con `__LEAVE__` al desconectar un cliente
 
-**Cliente TCP**
+### **Cliente (TCP)**
 
 - Envía el alias como primera línea tras conectar
-- Crea un **hilo receptor** que:
-  - lee las líneas del servidor
-  - analiza el formato `[Alias] mensaje`
-  - actúa según `__HELLO__`, `__LEAVE__`, `__USERS__`
-  - reproduce un pequeño sonido y muestra el mensaje en color
-- El hilo principal:
-  - gestiona la entrada del usuario
-  - muestra la “burbuja” de mensaje propio alineada a la derecha
-  - interpreta los comandos ( `/clear`, `/users`, `/quit` )
+- Inicia un **hilo receptor** que:
+  - lee líneas desde el servidor
+  - analiza `[Alias] mensaje`
+  - detecta eventos internos (`__HELLO__`, `__LEAVE__`, `__USERS__`)
+  - reproduce sonido y muestra mensajes con color
+- El hilo principal gestiona la entrada del usuario, las “burbujas” locales de mensaje y los comandos
 
-Esta versión ejemplifica una arquitectura clásica de **chat TCP multihilo** en poco código.
+> Esta versión refleja una arquitectura clásica de chat **TCP multihilo**,  
+> compacta, clara y orientada a aprendizaje.
+
 
 ---
 
